@@ -12,6 +12,20 @@ All project notebooks are run on Google Colab. Links are listed below.
 
 ---
 
-## Notes
-- Runtime: A100 GPU
-- Before running, follow `data/README.md` to download the dataset
+## Hardware & Runtime Environment
+
+All experiments were executed using Google Colab with the following hardware configuration:
+
+**Compute Hardware**
+- GPU: NVIDIA A100-SXM4-80GB
+- GPU Memory: 80 GB VRAM
+- GPU Architecture: Ampere
+- CUDA Driver Version: 13.0
+- CUDA Toolkit Version: 12.8
+
+**Execution Environment**
+- Platform: Google Colab
+- Accelerator: GPU Runtime
+- Frameworks: PyTorch / TensorFlow (GPU-enabled)
+
+This hardware configuration enabled large-batch deep learning training and accelerated experimentation for model development and evaluation.
