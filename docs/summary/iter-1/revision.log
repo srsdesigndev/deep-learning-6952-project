@@ -1,0 +1,35 @@
+What's Holding Back the Accuracy
+RQ1 — Classification (The model is okay, but could be better)
+Current problems:
+
+20 epochs and one hidden layer of 64 neurons is relatively small for a dataset of 250,000 rows
+The threshold of 0.0 is fixed — it's not tuned to find the optimal precision/recall balance
+No learning rate scheduling — the learning rate stays flat the entire training which means the model stops improving efficiently in later epochs
+Dropout of 0.3 might be too aggressive, killing useful neurons during training
+
+What I'd try:
+
+Increase epochs to 50–100 with early stopping so it stops automatically when it stops improving
+Add a learning rate scheduler that reduces the rate as training progresses
+Try different classification thresholds (0.3, 0.4) instead of fixed 0.0 to find the sweet spot between precision and recall
+Experiment with wider layers — 256 → 128 → 64 instead of 128 → 64 → 32
+
+
+RQ2 — Regression (This is a deeper problem)
+Current problems:
+
+R² of 0.16 is not primarily a modeling problem — it's a data problem
+The features in this dataset are survey-based lifestyle indicators, not direct physiological measurements
+BMI is heavily influenced by genetics, metabolism, and detailed diet — none of which exist in this dataset
+The model is compressing predictions toward the mean because extreme BMI cases are underrepresented in training
+
+What I'd try:
+
+Feature engineering — create interaction terms like Age × PhysActivity or combine related features before feeding them in
+Target transformation — apply log transformation to BMI before training to compress the extreme values and help the model handle outliers better
+Oversampling extreme BMI cases — similar to class weighting in RQ1, give the model more exposure to high and low BMI examples
+Increase epochs significantly — the loss curves showed both models nearly plateaued, meaning more training time could still help
+
+
+The Honest Answer
+For RQ1 the fixes above would genuinely push performance higher. For RQ2 no amount of architecture tuning will dramatically change the R² because the ceiling is set by the data itself, not the model. To meaningfully improve BMI prediction you'd need richer features — actual dietary data, physical measurements, or metabolic indicators — that this survey dataset simply doesn't contain.
