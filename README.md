@@ -1,37 +1,86 @@
+![Project Banner](assets/banner/project-banner-gpt.png)
+
 # Health by the Numbers: Predicting Diabetes and BMI with Deep Learning
+**CSCI 6952 — Deep Learning | Spring 2026**
 
-> CDC Diabetes Health Indicators — UC Irvine ML Repository
+---
 
-## Files
+## Overview
 
-- [project/readme.md](project/readme.md)
-- [project-instructions/instructions.md](project-instructions/instructions.md)
-- [project-poster/readme.md](project-poster/readme.md)
-- [project-poster/template/poster-instruction.md](project-poster/template/poster-instruction.md)
-- [project-poster/template/project-banner-template.png](project-poster/template/project-banner-template.png)
-- [proposal/proposal.md](proposal/proposal.md)
+This project uses the CDC Diabetes Health Indicators dataset to explore two
+predictive modeling problems using deep learning. We will train and compare
+multiple models of increasing complexity for both a classification and a
+regression task, documenting the full experimental process from data exploration
+to final results.
 
-## Dataset
-
-**Source:** [CDC Diabetes Health Indicators](https://archive.ics.uci.edu/dataset/891/cdc+diabetes+health+indicators)  
-**Instances:** 253,680 | **Features:** 22
+---
 
 ## Research Questions
 
-**RQ1 (Classification)** — Predict diabetes status from lifestyle factors (BMI, blood pressure, cholesterol, physical activity)
+**RQ1 — Classification**
+Can we predict if a patient has diabetes based on lifestyle factors like BMI,
+blood pressure, cholesterol levels, and physical activity?
 
-**RQ2 (Regression)** — Predict BMI from lifestyle factors (age, income, physical activity, health rating, smoking)
+**RQ2 — Regression**
+Can we predict a patient's BMI based on lifestyle factors like age, income,
+physical activity, general health rating, and smoking habits?
 
-## Models
+---
 
-| Task | Baseline | Model 1 | Model 2 |
-|------|----------|---------|---------|
-| Classification | Logistic Regression | Feedforward NN (1 hidden layer) | Deep NN + Dropout |
-| Regression | Linear Regression | Feedforward NN (1 hidden layer) | Deep NN + BatchNorm + Dropout |
+## Dataset
 
-## Hyperparameters to Tune
+CDC Diabetes Health Indicators Dataset
+Source: UC Irvine Machine Learning Repository
+253,680 instances, 22 features, no missing values
+See `data/README.md` for download instructions.
 
-- Learning rate
-- Number of hidden layers
-- Dropout rate
-- Batch size
+---
+
+## Project Structure
+
+```
+DL-PROJECT-CSCI6952/
+│
+├── assets/                     # banner and figures
+├── data/                       # dataset download instructions
+├── docs/                       # project documentation
+├── notebooks/                  # main colab notebook
+├── poster/                     # poster template and final output
+├── .gitignore
+└── README.md
+```
+
+---
+
+## Planned Approach
+
+### Classification — Predicting Diabetes
+We will train three models starting simple and increasing in complexity:
+- Logistic Regression as the baseline
+- A simple neural network with one hidden layer
+- A deeper neural network with multiple hidden layers and dropout
+
+Since the dataset has a class imbalance — far more non-diabetic than diabetic
+cases — we will prioritize recall over accuracy. Missing a diabetic patient
+is a much worse outcome than a false alarm.
+
+### Regression — Predicting BMI
+We will train three models using the same approach:
+- Linear Regression as the baseline
+- A simple neural network with one hidden layer
+- A deeper neural network with batch normalization and dropout
+
+---
+
+## How to Run
+
+1. Open `notebooks/diabetes_project.ipynb` in Google Colab
+2. Set runtime to A100 GPU
+3. Follow `data/README.md` to download the dataset
+4. Run all cells from top to bottom
+
+---
+
+## Status
+Experiment in progress. Results and figures will be updated here once training
+is complete.
