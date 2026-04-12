@@ -1,0 +1,372 @@
+PyTorch version: 2.10.0+cpu
+GPU available: False
+
+Using Colab cache for faster access to the 'diabetes-health-indicators-dataset' dataset.
+Shape: (253680, 22)
+Diabetes_binary	HighBP	HighChol	CholCheck	BMI	Smoker	Stroke	HeartDiseaseorAttack	PhysActivity	Fruits	...	AnyHealthcare	NoDocbcCost	GenHlth	MentHlth	PhysHlth	DiffWalk	Sex	Age	Education	Income
+0	0.0	1.0	1.0	1.0	40.0	1.0	0.0	0.0	0.0	0.0	...	1.0	0.0	5.0	18.0	15.0	1.0	0.0	9.0	4.0	3.0
+1	0.0	0.0	0.0	0.0	25.0	1.0	0.0	0.0	1.0	0.0	...	0.0	1.0	3.0	0.0	0.0	0.0	0.0	7.0	6.0	1.0
+2	0.0	1.0	1.0	1.0	28.0	0.0	0.0	0.0	0.0	1.0	...	1.0	1.0	5.0	30.0	30.0	1.0	0.0	9.0	4.0	8.0
+3	0.0	1.0	0.0	1.0	27.0	0.0	0.0	0.0	1.0	1.0	...	1.0	0.0	2.0	0.0	0.0	0.0	0.0	11.0	3.0	6.0
+4	0.0	1.0	1.0	1.0	24.0	0.0	0.0	0.0	1.0	1.0	...	1.0	0.0	2.0	3.0	0.0	0.0	0.0	11.0	5.0	4.0
+5 rows × 22 columns
+
+Missing values:
+ Diabetes_binary         0
+HighBP                  0
+HighChol                0
+CholCheck               0
+BMI                     0
+Smoker                  0
+Stroke                  0
+HeartDiseaseorAttack    0
+PhysActivity            0
+Fruits                  0
+Veggies                 0
+HvyAlcoholConsump       0
+AnyHealthcare           0
+NoDocbcCost             0
+GenHlth                 0
+MentHlth                0
+PhysHlth                0
+DiffWalk                0
+Sex                     0
+Age                     0
+Education               0
+Income                  0
+dtype: int64
+
+Class distribution (Diabetes_binary):
+Diabetes_binary
+0.0    218334
+1.0     35346
+Name: count, dtype: int64
+Diabetes_binary
+0.0    0.861
+1.0    0.139
+Name: proportion, dtype: float64
+
+Basic statistics:
+        Diabetes_binary         HighBP       HighChol      CholCheck  \
+count    253680.000000  253680.000000  253680.000000  253680.000000   
+mean          0.139333       0.429001       0.424121       0.962670   
+std           0.346294       0.494934       0.494210       0.189571   
+min           0.000000       0.000000       0.000000       0.000000   
+25%           0.000000       0.000000       0.000000       1.000000   
+50%           0.000000       0.000000       0.000000       1.000000   
+75%           0.000000       1.000000       1.000000       1.000000   
+max           1.000000       1.000000       1.000000       1.000000   
+
+                 BMI         Smoker         Stroke  HeartDiseaseorAttack  \
+count  253680.000000  253680.000000  253680.000000         253680.000000   
+mean       28.382364       0.443169       0.040571              0.094186   
+std         6.608694       0.496761       0.197294              0.292087   
+min        12.000000       0.000000       0.000000              0.000000   
+25%        24.000000       0.000000       0.000000              0.000000   
+50%        27.000000       0.000000       0.000000              0.000000   
+75%        31.000000       1.000000       0.000000              0.000000   
+max        98.000000       1.000000       1.000000              1.000000   
+
+        PhysActivity         Fruits  ...  AnyHealthcare    NoDocbcCost  \
+count  253680.000000  253680.000000  ...  253680.000000  253680.000000   
+mean        0.756544       0.634256  ...       0.951053       0.084177   
+std         0.429169       0.481639  ...       0.215759       0.277654   
+min         0.000000       0.000000  ...       0.000000       0.000000   
+25%         1.000000       0.000000  ...       1.000000       0.000000   
+50%         1.000000       1.000000  ...       1.000000       0.000000   
+75%         1.000000       1.000000  ...       1.000000       0.000000   
+max         1.000000       1.000000  ...       1.000000       1.000000   
+
+             GenHlth       MentHlth       PhysHlth       DiffWalk  \
+count  253680.000000  253680.000000  253680.000000  253680.000000   
+mean        2.511392       3.184772       4.242081       0.168224   
+std         1.068477       7.412847       8.717951       0.374066   
+min         1.000000       0.000000       0.000000       0.000000   
+25%         2.000000       0.000000       0.000000       0.000000   
+50%         2.000000       0.000000       0.000000       0.000000   
+75%         3.000000       2.000000       3.000000       0.000000   
+max         5.000000      30.000000      30.000000       1.000000   
+
+                 Sex            Age      Education         Income  
+count  253680.000000  253680.000000  253680.000000  253680.000000  
+mean        0.440342       8.032119       5.050434       6.053875  
+std         0.496429       3.054220       0.985774       2.071148  
+min         0.000000       1.000000       1.000000       1.000000  
+25%         0.000000       6.000000       4.000000       5.000000  
+50%         0.000000       8.000000       5.000000       7.000000  
+75%         1.000000      10.000000       6.000000       8.000000  
+max         1.000000      13.000000       6.000000       8.000000  
+
+[8 rows x 22 columns]
+
+
+ no diabetes  diabetes
+0.0  218334  35346
+
+Train size: (202944, 21)
+Test size:  (50736, 21)
+
+Train size: (202944, 20)
+Test size:  (50736, 20)
+
+=== Logistic Regression ===
+              precision    recall  f1-score   support
+
+ No Diabetes       0.88      0.98      0.92     43667
+    Diabetes       0.52      0.16      0.24      7069
+
+    accuracy                           0.86     50736
+   macro avg       0.70      0.57      0.58     50736
+weighted avg       0.83      0.86      0.83     50736
+
+
+Epoch 01/50 - Loss: 0.9071
+Epoch 02/50 - Loss: 0.8674
+Epoch 03/50 - Loss: 0.8636
+Epoch 04/50 - Loss: 0.8620
+Epoch 05/50 - Loss: 0.8608
+Epoch 06/50 - Loss: 0.8597
+Epoch 07/50 - Loss: 0.8588
+Epoch 08/50 - Loss: 0.8588
+Epoch 09/50 - Loss: 0.8580
+Epoch 10/50 - Loss: 0.8580
+Epoch 11/50 - Loss: 0.8573
+Epoch 12/50 - Loss: 0.8572
+Epoch 13/50 - Loss: 0.8575
+Epoch 14/50 - Loss: 0.8572
+Epoch 15/50 - Loss: 0.8569
+Epoch 16/50 - Loss: 0.8563
+Epoch 17/50 - Loss: 0.8563
+Epoch 18/50 - Loss: 0.8562
+Epoch 19/50 - Loss: 0.8562
+Epoch 20/50 - Loss: 0.8561
+Epoch 21/50 - Loss: 0.8558
+Epoch 22/50 - Loss: 0.8557
+Epoch 23/50 - Loss: 0.8553
+Epoch 24/50 - Loss: 0.8558
+Epoch 25/50 - Loss: 0.8557
+Epoch 26/50 - Loss: 0.8555
+Epoch 27/50 - Loss: 0.8556
+Epoch 28/50 - Loss: 0.8555
+Epoch 29/50 - Loss: 0.8558
+Epoch 30/50 - Loss: 0.8557
+Epoch 31/50 - Loss: 0.8555
+Epoch 32/50 - Loss: 0.8553
+Epoch 33/50 - Loss: 0.8554
+Epoch 34/50 - Loss: 0.8556
+Epoch 35/50 - Loss: 0.8556
+Epoch 36/50 - Loss: 0.8553
+Epoch 37/50 - Loss: 0.8554
+Epoch 38/50 - Loss: 0.8555
+Epoch 39/50 - Loss: 0.8555
+Epoch 40/50 - Loss: 0.8556
+Epoch 41/50 - Loss: 0.8555
+Epoch 42/50 - Loss: 0.8553
+Epoch 43/50 - Loss: 0.8556
+Epoch 44/50 - Loss: 0.8556
+Epoch 45/50 - Loss: 0.8556
+Epoch 46/50 - Loss: 0.8553
+Epoch 47/50 - Loss: 0.8553
+Epoch 48/50 - Loss: 0.8552
+Epoch 49/50 - Loss: 0.8555
+Epoch 50/50 - Loss: 0.8556
+Threshold -2.0 | Recall: 0.980 | Precision: 0.189 | F1: 0.316
+Threshold -1.5 | Recall: 0.961 | Precision: 0.206 | F1: 0.339
+Threshold -1.0 | Recall: 0.933 | Precision: 0.231 | F1: 0.370
+Threshold -0.5 | Recall: 0.885 | Precision: 0.262 | F1: 0.404
+Threshold +0.0 | Recall: 0.800 | Precision: 0.304 | F1: 0.441
+Threshold +0.5 | Recall: 0.657 | Precision: 0.360 | F1: 0.465
+Threshold +1.0 | Recall: 0.474 | Precision: 0.431 | F1: 0.452
+
+=== Simple Neural Network ===
+              precision    recall  f1-score   support
+
+ No Diabetes       0.94      0.81      0.87     43667
+    Diabetes       0.36      0.66      0.46      7069
+
+    accuracy                           0.79     50736
+   macro avg       0.65      0.73      0.67     50736
+weighted avg       0.86      0.79      0.81     50736
+
+
+
+Epoch 01/30 - Loss: 0.9081
+Epoch 02/30 - Loss: 0.8778
+Epoch 03/30 - Loss: 0.8741
+Epoch 04/30 - Loss: 0.8702
+Epoch 05/30 - Loss: 0.8688
+Epoch 06/30 - Loss: 0.8659
+Epoch 07/30 - Loss: 0.8661
+Epoch 08/30 - Loss: 0.8657
+Epoch 09/30 - Loss: 0.8649
+Epoch 10/30 - Loss: 0.8639
+Epoch 11/30 - Loss: 0.8627
+Epoch 12/30 - Loss: 0.8633
+Epoch 13/30 - Loss: 0.8632
+Epoch 14/30 - Loss: 0.8616
+Epoch 15/30 - Loss: 0.8616
+Epoch 16/30 - Loss: 0.8604
+Epoch 17/30 - Loss: 0.8599
+Epoch 18/30 - Loss: 0.8610
+Epoch 19/30 - Loss: 0.8602
+Epoch 20/30 - Loss: 0.8602
+Epoch 21/30 - Loss: 0.8602
+Epoch 22/30 - Loss: 0.8596
+Epoch 23/30 - Loss: 0.8598
+Epoch 24/30 - Loss: 0.8602
+Epoch 25/30 - Loss: 0.8599
+Epoch 26/30 - Loss: 0.8599
+Epoch 27/30 - Loss: 0.8597
+Epoch 28/30 - Loss: 0.8596
+Epoch 29/30 - Loss: 0.8590
+Epoch 30/30 - Loss: 0.8595
+Threshold -2.0 | Recall: 0.984 | Precision: 0.185 | F1: 0.312
+Threshold -1.5 | Recall: 0.965 | Precision: 0.202 | F1: 0.335
+Threshold -1.0 | Recall: 0.938 | Precision: 0.225 | F1: 0.362
+Threshold -0.5 | Recall: 0.894 | Precision: 0.257 | F1: 0.400
+Threshold +0.0 | Recall: 0.804 | Precision: 0.301 | F1: 0.438
+Threshold +0.5 | Recall: 0.643 | Precision: 0.363 | F1: 0.464
+Threshold +1.0 | Recall: 0.462 | Precision: 0.436 | F1: 0.449
+
+=== Deep Neural Network ===
+              precision    recall  f1-score   support
+
+ No Diabetes       0.93      0.82      0.87     43667
+    Diabetes       0.36      0.64      0.46      7069
+
+    accuracy                           0.79     50736
+   macro avg       0.65      0.73      0.67     50736
+weighted avg       0.85      0.79      0.81     50736
+
+
+
+confusion matrix:
+ [[35690  7977]
+ [ 2523  4546]]
+
+=== Linear Regression ===
+MAE:  4.3643
+RMSE: 6.1749
+R2:   0.1230
+
+Epoch 01/20 - Loss: 396.1964
+Epoch 02/20 - Loss: 57.7113
+Epoch 03/20 - Loss: 43.7974
+Epoch 04/20 - Loss: 40.6034
+Epoch 05/20 - Loss: 39.3119
+Epoch 06/20 - Loss: 38.6396
+Epoch 07/20 - Loss: 38.2700
+Epoch 08/20 - Loss: 38.0309
+Epoch 09/20 - Loss: 37.9498
+Epoch 10/20 - Loss: 37.7857
+Epoch 11/20 - Loss: 37.7113
+Epoch 12/20 - Loss: 37.6625
+Epoch 13/20 - Loss: 37.6164
+Epoch 14/20 - Loss: 37.5974
+Epoch 15/20 - Loss: 37.5498
+Epoch 16/20 - Loss: 37.5206
+Epoch 17/20 - Loss: 37.5006
+Epoch 18/20 - Loss: 37.4746
+Epoch 19/20 - Loss: 37.4799
+Epoch 20/20 - Loss: 37.5372
+
+=== Simple Neural Network - Regression ===
+MAE:  4.2963
+RMSE: 6.1089
+R2:   0.1416
+
+
+Epoch 01/30 - Loss: 198.6329
+Epoch 02/30 - Loss: 49.9263
+Epoch 03/30 - Loss: 48.1339
+Epoch 04/30 - Loss: 46.8949
+Epoch 05/30 - Loss: 45.4186
+Epoch 06/30 - Loss: 44.1470
+Epoch 07/30 - Loss: 42.5958
+Epoch 08/30 - Loss: 41.2113
+Epoch 09/30 - Loss: 40.0789
+Epoch 10/30 - Loss: 39.2099
+Epoch 11/30 - Loss: 38.5337
+Epoch 12/30 - Loss: 37.9006
+Epoch 13/30 - Loss: 37.5680
+Epoch 14/30 - Loss: 37.3194
+Epoch 15/30 - Loss: 37.1763
+Epoch 16/30 - Loss: 37.1749
+Epoch 17/30 - Loss: 37.0248
+Epoch 18/30 - Loss: 37.1066
+Epoch 19/30 - Loss: 36.9938
+Epoch 20/30 - Loss: 36.9340
+Epoch 21/30 - Loss: 36.9562
+Epoch 22/30 - Loss: 36.8337
+Epoch 23/30 - Loss: 36.9101
+Epoch 24/30 - Loss: 36.8553
+Epoch 25/30 - Loss: 36.8094
+Epoch 26/30 - Loss: 36.8017
+Epoch 27/30 - Loss: 36.7548
+Epoch 28/30 - Loss: 36.7399
+Epoch 29/30 - Loss: 36.7481
+Epoch 30/30 - Loss: 36.7125
+
+=== Deep Neural Network - Regression ===
+MAE:  4.2456
+RMSE: 6.0250
+R2:   0.1651
+
+
+Epoch 01/50 - Loss: 0.8361
+Epoch 02/50 - Loss: 0.1851
+Epoch 03/50 - Loss: 0.1350
+Epoch 04/50 - Loss: 0.0784
+Epoch 05/50 - Loss: 0.0455
+Epoch 06/50 - Loss: 0.0394
+Epoch 07/50 - Loss: 0.0387
+Epoch 08/50 - Loss: 0.0383
+Epoch 09/50 - Loss: 0.0381
+Epoch 10/50 - Loss: 0.0379
+Epoch 11/50 - Loss: 0.0378
+Epoch 12/50 - Loss: 0.0376
+Epoch 13/50 - Loss: 0.0375
+Epoch 14/50 - Loss: 0.0374
+Epoch 15/50 - Loss: 0.0374
+Epoch 16/50 - Loss: 0.0373
+Epoch 17/50 - Loss: 0.0373
+Epoch 18/50 - Loss: 0.0372
+Epoch 19/50 - Loss: 0.0372
+Epoch 20/50 - Loss: 0.0370
+Epoch 21/50 - Loss: 0.0369
+Epoch 22/50 - Loss: 0.0369
+Epoch 23/50 - Loss: 0.0368
+Epoch 24/50 - Loss: 0.0368
+Epoch 25/50 - Loss: 0.0367
+Epoch 26/50 - Loss: 0.0367
+Epoch 27/50 - Loss: 0.0366
+Epoch 28/50 - Loss: 0.0365
+Epoch 29/50 - Loss: 0.0365
+Epoch 30/50 - Loss: 0.0365
+Epoch 31/50 - Loss: 0.0364
+Epoch 32/50 - Loss: 0.0364
+Epoch 33/50 - Loss: 0.0364
+Epoch 34/50 - Loss: 0.0364
+Epoch 35/50 - Loss: 0.0363
+Epoch 36/50 - Loss: 0.0363
+Epoch 37/50 - Loss: 0.0363
+Epoch 38/50 - Loss: 0.0363
+Epoch 39/50 - Loss: 0.0362
+Epoch 40/50 - Loss: 0.0362
+Epoch 41/50 - Loss: 0.0362
+Epoch 42/50 - Loss: 0.0362
+Epoch 43/50 - Loss: 0.0362
+Epoch 44/50 - Loss: 0.0362
+Epoch 45/50 - Loss: 0.0362
+Epoch 46/50 - Loss: 0.0362
+Epoch 47/50 - Loss: 0.0362
+Epoch 48/50 - Loss: 0.0362
+Epoch 49/50 - Loss: 0.0361
+Epoch 50/50 - Loss: 0.0361
+=== Deep NN Regression - Log Transform ===
+MAE:  4.1882
+RMSE: 6.1346
+R2:   0.1344
+
+
+

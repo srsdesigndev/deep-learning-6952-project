@@ -1,85 +1,76 @@
-Got it. Here's all the content to fill the poster:
+**Predicting Diabetes and BMI with Deep Learning**
+**Sundar Raj Sharma** | CSCI 6952 | Spring 2026
 
 ---
 
-**Title:** Predicting Diabetes Risk and BMI Using Neural Networks
-
-**Name:** Sundar Raj Sharma
-
----
-
-**Background**
-- Diabetes affects millions globally and is closely tied to lifestyle factors like physical activity, diet, and BMI.
-- Early detection using machine learning can help flag at-risk individuals before clinical diagnosis.
-- This project uses the CDC BRFSS 2015 survey dataset with 253,680 respondents and 21 health indicators.
+## Background
+The project builds machine learning models to predict diabetes status and BMI from lifestyle and health indicators using the CDC BRFSS 2015 dataset.
 
 ---
 
-**Research Questions**
-- **Classification:** Can we predict whether a patient has diabetes based on lifestyle factors like BMI, blood pressure, cholesterol, and physical activity?
-- **Regression:** Can we predict a patient's BMI based on lifestyle factors like age, income, physical activity, general health, and smoking habits?
+## Research Questions
+- **Classification:** Can we predict if a patient has diabetes or not based on lifestyle factors like BMI, Blood Pressure, cholesterol levels… and physical activity?
+- **Regression:** Can we predict a patient's BMI based on lifestyle factors like age, income, physical activity, general health rating, and smoking habits?
 
 ---
 
-**Dataset**
-- Source: CDC Behavioral Risk Factor Surveillance System (BRFSS) 2015
-- 253,680 survey responses with 21 features per respondent.
-- Target variables: Diabetes\_binary (0/1) and BMI (continuous).
+## Dataset
+- **Single Dataset:** CDC Diabetes Health Indicators (UCI ML Repository)
+- 253,680 instances
+- 22 features
+- No missing values
+- Binary, categorical, and ordinal features
 
 ---
 
-**Data Preparation**
-- Class imbalance handled using pos\_weight in BCEWithLogitsLoss — 86% No Diabetes vs 14% Diabetes.
-- Features normalized using StandardScaler fit on training data only.
-- 80/20 train-test split with stratification for classification task.
+## Data Preparation
+- **Classification:** Applied random undersampling to balance classes (35,346 diabetic vs 35,346 non-diabetic). StandardScaler applied. 80/20 stratified split.
+- **Regression:** Used full dataset (253,680 rows). StandardScaler applied. 80/20 split.
 
 ---
 
-**Classification Method**
-- Baseline: Logistic Regression.
-- Simple NN: one hidden layer, 64 neurons, ReLU, class weighting.
-- Deep NN: three hidden layers (128→64→32), Dropout 0.3, BCEWithLogitsLoss with pos\_weight.
-- Optimal threshold tuned to +0.5 for best F1 score.
+## Classification Method
+- Logistic Regression was established as the baseline model.
+- Deep learning models were developed using a Simple Feedforward Neural Network (64→32→1) and a Deep FNN incorporating Batch Normalization and Dropout layers.
+- Tuned Learning Rate, Dropout Rate, and Batch Size to explicitly maximize Recall, minimizing missed diabetes diagnoses.
 
 ---
 
-**Classification Results**
-- Deep NN outperformed all baselines after class weighting and threshold tuning.
-- Diabetes recall improved from 17% (no weighting) to 64% (final model).
-- Overall accuracy: 80%, Diabetes F1: 0.47.
+## Regression Method
+- Linear Regression was established as the baseline model.
+- Deep learning models were developed using a Simple Feedforward NN (64→32→1) and a Deep FNN (256→128→64→1) incorporating Batch Normalization and Dropout layers.
+- Tuned Learning Rate, Dropout Rate, and Batch Size to minimize MAE and improve BMI prediction accuracy.
 
-| Model | Accuracy | Diabetes F1 |
+---
+
+## Classification Results
+- Logistic Regression achieved the highest Recall of **76.6%**, correctly identifying 3 out of 4 diabetic patients in the test set.
+- Precision of **73.5%** is an acceptable clinical trade-off, as maximizing diabetes detection was the primary goal.
+
+### Classification Results Table
+
+| Model | Recall | F1 Score |
 |---|---|---|
-| Logistic Regression | Baseline | Baseline |
-| Simple NN | 0.79 | 0.47 |
-| Deep NN | 0.80 | 0.47 |
+| Logistic Regression | 0.766 | 0.750 |
+| Simple NN | 0.638 | 0.702 |
+| Deep NN | 0.687 | 0.724 |
 
 ---
 
-**Regression Method**
-- Baseline: Linear Regression.
-- Simple NN: one hidden layer, 64 neurons, MSELoss.
-- Deep NN: three hidden layers (128→64→32), Batch Normalization, Dropout 0.3.
-- Additional experiments: log transform, feature engineering.
+## Regression Results
+- Deep NN achieved the best MAE of **4.2255** while Simple NN achieved the best R² of **0.1599**, both outperforming the Linear Regression baseline.
+- All models clustered predictions around the population mean BMI (~28–30), reflecting a data ceiling caused by the binary nature of input features.
+
+### Regression Results Table
+
+| Model | MAE | R² |
+|---|---|---|
+| LR (Linear Regression) | 4.4012 | 0.1193 |
+| SNN (Simple NN) | 4.2618 | 0.1599 |
+| DNN (Deep NN) | 4.2255 | 0.1577 |
 
 ---
 
-**Regression Results**
-- Deep NN achieved best R² of 0.1642 — marginal improvement over baseline.
-- Log transform and feature engineering did not improve results.
-- Data limitation identified — survey features insufficient to predict BMI accurately.
-
-| Model | MAE | RMSE | R² |
-|---|---|---|---|
-| Linear Regression | 4.36 | 6.17 | 0.123 |
-| Simple NN | 4.27 | 6.07 | 0.153 |
-| Deep NN | 4.21 | 6.03 | 0.164 |
-
----
-
-**Future Work**
-- Incorporate richer features such as dietary data and metabolic indicators to improve BMI prediction.
-- Explore ensemble methods and SMOTE oversampling to further address class imbalance in classification.
-
-
-Can we predict if a patient has diabetes or not based on lifestyle factors like BMI, blood pressure, cholesterol levels, and physical activity?
+## Future Work
+- Future studies will include using **SMOTE oversampling** for better diabetes recall.
+- Acquiring better continuous attributes such as **caloric consumption** and **physical exercise hours** to surpass the BMI prediction limitation of R² ~0.16.
