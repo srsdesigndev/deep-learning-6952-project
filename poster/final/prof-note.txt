@@ -1,0 +1,17 @@
+Note : I ran experiments across several days to determine the optimal configurations for the 
+models, and what you see in the poster reflects the results of those final successful iterations. 
+I am happy with the results obtained; however, there may still be some room for further optimization, 
+considering the number of diferent techniques I explored. As for the poster itself, while the 
+content and structure are solid, I would like to mention that the figures 
+do not fit entirely within the layout, giving it a somewhat messy appearance.
+
+Regarding the experimentation process: the dataset was initially heavily imbalanced, 
+which led to very poor metrics early on. I tried several approaches to address this  including 
+adding pos_weight to the loss function to penalize the minority class, and adjusting the 
+classification threshold but none of these gave satisfactory results. Eventually, 
+I explored resampling strategies and found that random undersampling,
+while a simple technique, worked surprisingly well and produced the 
+best overall results. Oversampling was also attempted, but under sampling 
+edged it out by just a margin. The full experimntal code is available here:
+
+https://github.com/srsdesigndev/deep-learning-6952-project

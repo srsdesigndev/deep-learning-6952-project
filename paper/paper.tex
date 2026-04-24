@@ -1,0 +1,135 @@
+\documentclass{article}
+
+\usepackage[final]{csci6952}
+\bibliographystyle{plainnat}
+\usepackage[numbers]{natbib}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{nicefrac}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+\title{Predicting Diabetes and BMI with Deep Learning}
+
+\author{%
+  Sundar Raj Sharma \\
+  Department of Computer Science \& Information Systems \\
+  Youngstown State University \\
+  \texttt{CSCI 6952 -- Spring 2026} \\
+  \texttt{ssharma33@student.ysu.edu} \\
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+In this paper, I investigated two hypotheses concerning the predictions of patients’ diabetes status and body mass index (BMI) using the health indicators data set from CDC (BRFSS) 2015. Logistic Regression and two neural network classifiers based on the feedforward neural network concept have been implemented for the detection of diabetes among patients. At the same time, simple linear regression and two neural network regression have been used to estimate patients’ BMI based on information about their lifestyles. According to the results obtained, logistic regression demonstrated the highest precision with a recall of 76.6
+
+
+\end{abstract}
+
+\section{Introduction}
+
+The use of machine learning algorithms in the field of public health and clinical practices has been increasing with time. Machine learning provides great opportunities to make early diagnoses of many diseases, and at the same time, to recognize the role of different risk factors related to certain lifestyles~\cite{xie2019}. One of the chronic diseases, which created substantial difficulties for health care in the United States is diabetes. The research showed that BMI, physical activities, blood pressure, and cholesterol level are the risk factors of this disease~\cite{brfss2015dataset}. This paper examines the following issues with machine learning algorithms and artificial neural networks: 
+(1) Prediction of diabetes with regard to health and lifestyle features, which include BMI, blood pressure, and cholesterol level; 
+(2) Prediction of BMI with regard to health and lifestyle factors, which include age, income, physical activities, health status, and smoking habit.
+
+\section{Dataset}
+
+In this project, a single dataset, CDC Diabetes Health Indicators, based on the Behavioral Risk Factor Surveillance System (BRFSS) 2015, obtained from the Kaggle data repository~\cite{brfss2015dataset}, is used. It consists of 253,680 observations and 22 features without any missing values. The features are composed of binary, categorical, and ordinal attributes related to health indicators like high blood pressure (\texttt{HighBP}), high cholesterol (\texttt{HighChol}), whether the individual is a smoker, had a stroke, exercises, consumes fruits and vegetables, general health conditions, number of mental health days, age, education, and income. For the classification purpose, \texttt{Diabetes\_binary} (0 = absence, 1 = presence of diabetes/prediabetes) is used as a target, whereas for regression, \texttt{BMI} is used as a target.
+
+In case of Classification, Random Undersampling was employed due to an unbalanced dataset of 218,334 non-diabetics vs. 35,346 diabetics in order to make the data evenly distributed among both classes. Hence, a balanced training set of 35,346 data samples was created. All features were then standardized by \texttt{Standard Scaler} and divided into training (80\%) and testing sets (20\%) with stratification. In case of regression, the whole dataset of 253,680 observations was utilized following the similar scaling and splitting process.
+
+\section{Methods}
+
+\subsection{Classification}
+
+The classification problem aims to predict \texttt{Diabetes\_binary} based on all other available variables, with an emphasis on reducing false negatives, which could pose more severe consequences than false positives. Logistic Regression with a maximum number of iterations set to 1000 was considered as a benchmark model. Two neural network models were subsequently built for comparison. The Simple Feedforward Neural Network contained a single hidden layer of 64 neurons, applying ReLU and Linear activation functions, respectively (64$\rightarrow$1). The Deep Feedforward Neural Network included three hidden layers with 128, 64, and 32 neurons, respectively, and a Dropout layer (dropout rate = 0.3) in between each pair of adjacent hidden layers for regularization (128$\rightarrow$64$\rightarrow$32$\rightarrow$1). For both models, Adam with a learning rate of 0.001 and StepLR scheduler (step size = 5, $\gamma$ = 0.5) were applied as the optimization algorithm, while \texttt{BCEWithLogitsLoss}, weighted positively, was employed as the loss function. The Simple NN was trained for 50 epochs with a batch size of 512, and the Deep NN for 30 epochs. The evaluation metrics used include Recall and F1-score for the target class, with an analysis of the Precision-Recall curve conducted with a threshold sweep of raw logits.
+
+\subsection{Regression}
+
+The regression problem required predicting \texttt{BMI} using all other features excluding \texttt{Diabetes\_binary}. For comparison purposes, a simple Linear Regression was employed as the benchmark model. To detect any possible non-linearity in the data, two different Neural Networks were constructed. One was a Simple NN model ($\textit{64}\rightarrow1$) whereas another one was a Deep NN model ($\textit{128}\rightarrow64\rightarrow32\rightarrow1$), where batch normalization was added as an additional layer after each hidden layer. Both of these models were optimized using Adam optimizer and mean squared error criterion. While the first one was trained for 20 epochs, the second one was trained for 30 epochs. Another approach considered applying log transformation to the BMI target value and subsequently transforming predicted values back to the original scale.
+
+\section{Results}
+
+\subsection{Classification}
+
+The performance in terms of classification accuracy for each model is summarized in Table~\ref{tab:clf}. Logistic Regression showed the highest recall of 0.766, detecting about three out of every four people with diabetes in the test data and the highest F1-score of 0.750. For the Simple NN and Deep NN, even though the class weights were used during the training process, recall was relatively low compared to Logistic Regression, at 0.638 and 0.687, respectively. Nonetheless, it can be observed that Deep NN performed better in terms of recall and F1 than the Simple NN; hence, there was indeed improvement due to increased depth and regularization. As for the sweep threshold, with the logit threshold at $-$0.5, Simple NN could reach a recall value of up to 0.883, although with a significantly low precision score of 0.262.
+
+\begin{table}[h]
+  \caption{Classification results on the test set (positive class = Diabetes).}
+  \label{tab:clf}
+  \centering
+  \begin{tabular}{lcc}
+    \toprule
+    Model & Recall & F1 Score \\
+    \midrule
+    Logistic Regression & 0.766 & 0.750 \\
+    Simple NN           & 0.638 & 0.702 \\
+    Deep NN             & 0.687 & 0.724 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Regression}
+
+The regression outputs for all models are included in Table~\ref{tab:reg}. While both NNs outperformed the linear regressor based on MAE, the Deep NN performed best based on this metric, with MAE of 4.2255, while the Simple NN achieved the highest R$^2$, 0.1599. The logarithm transformation applied on the data used to train the Deep NN led to the smallest MAE of 4.1909, although it decreased the R$^2$ by 0.0095 compared to the regular Deep NN. Generally, the R$^2$ values were consistently small for all models (between 0.12 and 0.16), suggesting that features provided little explanatory power for the BMI variable. The scatterplots of predicted versus actual BMI showed that all models tended to center their predictions around the average value of the population (around 28-30) due to a data ceiling caused by the binary/ordinal nature of the inputs.
+
+\begin{table}[h]
+  \caption{Regression results on the test set (target = BMI).}
+  \label{tab:reg}
+  \centering
+  \begin{tabular}{lccc}
+    \toprule
+    Model & MAE & RMSE & R$^2$ \\
+    \midrule
+    Linear Regression & 4.4012 & 6.1749 & 0.1193 \\
+    Simple NN         & 4.2618 & 6.0733 & 0.1599 \\
+    Deep NN           & 4.2255 & 6.0301 & 0.1637 \\
+    Deep NN (log)     & 4.1909 & 6.0778 & 0.1504 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Discussion}
+
+\subsection{Choosing the Right Evaluation Metric Matters in Clinical Settings}
+
+From these results, it is clear that the selection of the evaluation criterion used plays an important role in determining the performance of different models. The fact that logistic regression was able to detect diabetics best by giving higher weights to recall instead of accuracy suggests that when using machine learning models for disease diagnosis, evaluation of models should take into account the consequences of making particular types of errors rather than overall accuracy, especially when there is an imbalance in classes' risks.
+
+\subsection{Binary Input Features Create a Hard Ceiling on BMI Prediction}
+
+The results indicate that all the regression models, including the neural networks, hit a ceiling in terms of R$^2$, reaching maximum values in the range of 0.16, while their predictions were close to the average BMI of the population. This occurs directly as a result of using mostly binary or ordinal features with a relatively low number of options to differentiate people from one another. It would be helpful to have continuous features like caloric intake or physical activity per week or waist circumference in order to achieve better results.
+
+\subsection{Deep Networks Offer Consistent but Marginal Gains Over Simpler Models}
+
+However, although the use of a deeper architecture contributed to certain progress in the experiments, it was unable to considerably narrow the difference from the baseline models in both regression and classification. The Deep NN decreased the MAE metric by 0.17 on average in comparison with Linear Regression, while the log transformation variant demonstrated the smallest error (4.1909). At the same time, in spite of achieving an increased recall by '5%, the Deep NN failed to outperform logistic regression. Therefore, it can be concluded that the quality of the input signal and its transformation were far more important than deep learning architecture.
+
+\section{Future Work}
+
+Potential future research may include using SMOTE oversampling to replace random undersampling within the classification algorithm, allowing the inclusion of additional training data while miti gating the effect of class imbalance and possibly leading to improved recall and precision values. For regression analysis, the single greatest contribution would be collecting more complex features, such as caloric intake or exercise duration, to finally break past the current R$^2$ upper bound of about 0.16. The use of dimensionality reduction techniques, including PCA, or feature selection prior to training can be an effective way to enable the neural network models to learn from the survey data. Practically speaking, a robust diabetes risk classifier developed using survey data like this can be used in primary care facilities to identify patients at high risk of diabetes that haven't been clinically diagnosed yet.
+
+\begin{thebibliography}{9}
+ 
+\bibitem{xie2019}
+Z.~Xie, O.~Nikolayeva, J.~Luo, and D.~Li.
+\newblock Building risk prediction models for type 2 diabetes using machine learning techniques.
+\newblock \textit{Preventing Chronic Disease}, 16, 2019.
+\newblock \url{https://doi.org/10.5888/pcd16.190109}.
+ 
+\bibitem{brfss2015dataset}
+Alex Teboul.
+\newblock Diabetes Health Indicators Dataset.
+\newblock Kaggle, 2021.
+\newblock \url{https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset}.
+ 
+\end{thebibliography}
+
+\end{document}
